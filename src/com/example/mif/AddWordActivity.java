@@ -42,26 +42,20 @@ public class AddWordActivity extends Activity {
 		
 		listview = (ListView) findViewById(R.id.list_view);
 		alertDialog = new AlertDialog.Builder(this).create();
-    	
-    	// Set the Icon for the Dialog
-    	//alertDialog.setIcon(R.drawable.icon);
 		
 		db = new DataSource(this);
 		db.open();
 		setContentView(R.layout.activity_add_word);
-		// Show the Up button in the action bar.
 		setupActionBar();
 		
 		final List<String> categories = db.getAllCategories();
 		categories.add("New Category");
 		
 		Spinner spinner = (Spinner) findViewById(R.id.spinner1);
-		// Create an ArrayAdapter using the string array and a default spinner layout
 		adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
 		        categories);
-		// Specify the layout to use when the list of choices appears
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		// Apply the adapter to the spinner
+		
 		spinner.setAdapter(adapter);
 		cat = spinner.getItemAtPosition(0).toString();
 		spinner.setOnItemSelectedListener(new OnItemSelectedListener() 
@@ -70,27 +64,23 @@ public class AddWordActivity extends Activity {
 			public void onItemSelected(final AdapterView<?> parent, View view, final int position, long i) 
             {
                 if (parent.getItemAtPosition(position).toString().matches(getString(R.string.newCategory))){
-                	// get prompts.xml view
+                	
                 		LayoutInflater li = LayoutInflater.from(parent.getContext());
         				View promptsView = li.inflate(R.layout.prompt, null);
          
         				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
         						parent.getContext());
          
-        				// set prompts.xml to alertdialog builder
         				alertDialogBuilder.setView(promptsView);
          
         				final EditText userInput = (EditText) promptsView
         						.findViewById(R.id.editTextDialogUserInput);
          
-        				// set dialog message
         				alertDialogBuilder
         					.setCancelable(false)
         					.setPositiveButton(getString(R.string.ok),
         					  new DialogInterface.OnClickListener() {
         					    public void onClick(DialogInterface dialog,int id) {
-        						// get user input and set it to result
-        						// edit text
         					    	cat = userInput.getText().toString();
 	        						categories.set(position, userInput.getText().toString());
 	        						categories.add(getString(R.string.newCategory));
@@ -104,10 +94,8 @@ public class AddWordActivity extends Activity {
         					    }
         					  });
          
-        				// create alert dialog
         				AlertDialog alertDialog = alertDialogBuilder.create();
          
-        				// show it
         				alertDialog.show();
          
         			}
@@ -120,7 +108,7 @@ public class AddWordActivity extends Activity {
             }
                 @Override
                 public void onNothingSelected(AdapterView<?> arg0) {
-                    // TODO Auto-generated method stub
+                    
 
                 }
             });
@@ -150,9 +138,7 @@ public class AddWordActivity extends Activity {
         SparseBooleanArray checked = listview.getCheckedItemPositions();
         ArrayList<String> selectedItems = new ArrayList<String>();
         for (int i = 0; i < checked.size(); i++) {
-            // Item position in adapter
             int position = checked.keyAt(i);
-            // Add sport if it is checked i.e.) == TRUE!
             if (checked.valueAt(i))
                 selectedItems.add(arrayAdapter.getItem(position));
         }
@@ -174,10 +160,6 @@ public class AddWordActivity extends Activity {
     	Intent intent = new Intent(this, GameSettingsActivity.class);
         startActivity(intent);
     }
-
-	/**
-	 * Set up the {@link android.app.ActionBar}, if the API is available.
-	 */
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	private void setupActionBar() {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
@@ -187,7 +169,6 @@ public class AddWordActivity extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.add_word, menu);
 		return true;
 	}
@@ -196,13 +177,6 @@ public class AddWordActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:
-			// This ID represents the Home or Up button. In the case of this
-			// activity, the Up button is shown. Use NavUtils to allow users
-			// to navigate up one level in the application structure. For
-			// more details, see the Navigation pattern on Android Design:
-			//
-			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
-			//
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
 		}

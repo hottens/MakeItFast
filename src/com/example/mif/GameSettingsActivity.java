@@ -98,10 +98,8 @@ public class GameSettingsActivity extends Activity implements SeekBar.OnSeekBarC
         if(selectedItems.size() == 0){
         	infoDialog.setMessage(getString(R.string.categoryAlertMessage,1));
         	infoDialog.show();
-        	//showDialog(DIALOG_ALERT);
         }
 
-        // Create a bundle object
         Bundle cat = new Bundle();
         cat.putStringArrayList(getString(R.string.selectedCategories), output);
         
@@ -116,7 +114,6 @@ public class GameSettingsActivity extends Activity implements SeekBar.OnSeekBarC
         intent.putExtras(sec);
         intent.putExtras(cat);
         intent.putExtras(teams);
-        //Log.v("Sending", message);
         if (selectedItems.size()>0 ) startActivity(intent);
         else 
         	Toast.makeText(this,"Enter more than one team", Toast.LENGTH_LONG).show();
@@ -127,7 +124,7 @@ public class GameSettingsActivity extends Activity implements SeekBar.OnSeekBarC
     private final class CancelOnClickListener implements
             DialogInterface.OnClickListener {
         public void onClick(DialogInterface dialog, int which) {
-            //Toast.makeText(getApplicationContext(), getString(R.string.activityWillContinue),Toast.LENGTH_LONG).show();
+        	
         }
     }
 
@@ -154,13 +151,11 @@ public class GameSettingsActivity extends Activity implements SeekBar.OnSeekBarC
 
 	@Override
 	public void onStartTrackingTouch(SeekBar seekBar) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void onStopTrackingTouch(SeekBar seekBar) {
-		// TODO Auto-generated method stub
 		
 	}
 

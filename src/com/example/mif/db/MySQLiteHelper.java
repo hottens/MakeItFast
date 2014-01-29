@@ -31,8 +31,6 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
   public static final String TABLE_CAT = "categories";
 
   
-
-  // Database creation sql statement
   private static final String DICT_CREATE = "create table "
       + TABLE_WORDS 
       + "(" 
@@ -69,26 +67,19 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
   @Override
   public void onCreate(SQLiteDatabase database) {
 	  Log.v("onCreave SQLite helper","done");
-	  //Log.v("MySQLiteHelper","oncreate");
     database.execSQL(DICT_CREATE);
     database.execSQL(CAT_CREATE);
     try {
 		parseXMLtoDB(database);
 	} catch (XmlPullParserException e) {
-		// TODO Auto-generated catch block
 		e.printStackTrace();
 	} catch (IOException e) {
-		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-    //Log.v("Create HighScores",HS_CREATE);
-    //database.execSQL(HS_CREATE);
   }
   
   public void parseXMLtoDB(SQLiteDatabase database) throws XmlPullParserException, IOException {
 	 Log.v("parse","start parsing");
-	 //data = new DataSource(c);
-	 //data.open();
 	 XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
 	 factory.setNamespaceAware(true);
 	 XmlPullParser xpp = factory.newPullParser();
@@ -108,7 +99,6 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 			 if(eventType == XmlPullParser.START_TAG) {
 				 Log.v(xpp.getName(),"word");
 				 if(xpp.getName().equals("word")) countWord++;
-				 //Log.v("parse",xpp.getName());
 				 
 				 if (xpp.getName().equals("category")){
 					 if(xpp.next()== XmlPullParser.TEXT) {
@@ -128,7 +118,6 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 			 eventType = xpp.next();
 		 }
 		 ContentValues values = new ContentValues(); 
-		 //Log.v(word + " " + category,"add word");
 		 if(!(word.length()==0)&&!(category.length()==0)){ 
 			 Log.v(word + " " + category,"add word");
 			 values.put(MySQLiteHelper.COLUMN_CAT, category);
@@ -138,10 +127,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		 }
 		 eventType = xpp.next();
 		 
-		 //eventType = xpp.next(); //
 	  }
   
-	 //data.close();
   }
 
   @Override

@@ -135,9 +135,7 @@ public class GameActivity extends Activity {
     }
 
 
-	/**
-	 * Set up the {@link android.app.ActionBar}, if the API is available.
-	 */
+	
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	private void setupActionBar() {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
@@ -147,7 +145,6 @@ public class GameActivity extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.game, menu);
 		return true;
 	}
@@ -200,15 +197,13 @@ public class GameActivity extends Activity {
 		public void onClick(DialogInterface dialog, int which) {
 			Log.v("Dialog","cancel");
 			end = false;
-		    //Toast.makeText(getApplicationContext(), getString(R.string.activityWillContinue),Toast.LENGTH_LONG).show();
 		}
     }
     private final class okOnClickListener implements DialogInterface.OnClickListener {
 		public void onClick(DialogInterface dialog, int which) {
 			Log.v("Dialog","ok");
 	    	next(colorBar.getRootView());
-		    //Toast.makeText(getApplicationContext(), getString(R.string.activityWillContinue),Toast.LENGTH_LONG).show();
-		}
+	    }
     }
 
 

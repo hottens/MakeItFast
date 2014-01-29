@@ -20,13 +20,10 @@ public class DataSource {
   private String[] allColumns = { MySQLiteHelper.COLUMN_ID,
       MySQLiteHelper.COLUMN_WORD, MySQLiteHelper.COLUMN_CAT };
   private String[] allCatColumns = { MySQLiteHelper.COLUMN_ID, MySQLiteHelper.COLUMN_CAT };
-  /*private String[] allScoreColumns = { MySQLiteHelper.COLUMN_ID,
-	      MySQLiteHelper.COLUMN_WORD, MySQLiteHelper.COLUMN_SCORE,
-	      MySQLiteHelper.COLUMN_DATE};*/
+  
 
   public DataSource(Context context) {
     dbHelper = new MySQLiteHelper(context);
-    //dbHelper.onUpgrade(db, oldVersion, newVersion)
   }
 
   public void open() throws SQLException {
@@ -61,22 +58,6 @@ public class DataSource {
 	    database.insert(MySQLiteHelper.TABLE_CAT, null,values);
   }
   
-  /*public void addHighScore(String word,int score,boolean evil){
-	  Date date = (new java.sql.Date(System.currentTimeMillis()));
-	  ContentValues values = new ContentValues(); 
-	  values.put(MySQLiteHelper.COLUMN_WORD, word);
-	  values.put(MySQLiteHelper.COLUMN_SCORE, score);
-	  values.put(MySQLiteHelper.COLUMN_DATE, date.toString());
-	  values.put(MySQLiteHelper.COLUMN_EVIL, Boolean.toString(evil));
-	  database.insert(MySQLiteHelper.TABLE_HS , null, values); 
-  }
-
-  public void deleteWord(Word word) {
-    long id = word.getId();
-    System.out.println("Comment deleted with id: " + id);
-    database.delete(MySQLiteHelper.TABLE_DICT, MySQLiteHelper.COLUMN_ID
-        + " = " + id, null);
-  }*/
   public List<String> getAllCategories() {
     List<String> words = new ArrayList<String>();
 
@@ -85,11 +66,10 @@ public class DataSource {
 
     cursor.moveToFirst();
     while (!cursor.isAfterLast()) {
-      String word = cursor.getString(1);//cursorToWord(cursor);
+      String word = cursor.getString(1);
       words.add(word);
       cursor.moveToNext();
     }
-    // make sure to close the cursor
     cursor.close();
     return words;
   }
@@ -102,11 +82,10 @@ public class DataSource {
 
 	    cursor.moveToFirst();
 	    while (!cursor.isAfterLast()) {
-	      String word = cursor.getString(1);//cursorToWord(cursor);
+	      String word = cursor.getString(1);
 	      words.add(word);
 	      cursor.moveToNext();
 	    }
-	    // make sure to close the cursor
 	    cursor.close();
 	    return words;
 	  }
@@ -119,11 +98,10 @@ public class DataSource {
 
     cursor.moveToFirst();
     while (!cursor.isAfterLast()) {
-      String word = cursor.getString(1);//cursorToWord(cursor);
+      String word = cursor.getString(1);
       words.add(word);
       cursor.moveToNext();
     }
-    // make sure to close the cursor
     cursor.close();
     return words;
   }
@@ -156,50 +134,5 @@ public class DataSource {
       database.execSQL(query2);
   }
   
-  /*
-  
-  public List<Score> getAllScores() {
-	    List<Score> scores = new ArrayList<Score>();
-
-	    Cursor cursor = database.query(MySQLiteHelper.TABLE_HS,
-	        allScoreColumns, null, null, null, null, "score");
-
-	    cursor.moveToFirst();
-	    while (!cursor.isAfterLast()) {
-	      Score score = cursorToScore(cursor);
-	      scores.add(score);
-	      cursor.moveToNext();
-	    }
-	    // make sure to close the cursor
-	    cursor.close();
-	    return scores;
-	  }
-  
-  public int getMaxLength() {
-	    final SQLiteStatement stmt = database.compileStatement("SELECT MAX(length) FROM " +MySQLiteHelper.TABLE_DICT);
-
-	    return (int) stmt.simpleQueryForLong();
-  }
-  
- 
-
-  private String cursorToWord(Cursor cursor) {
-    Word word = new Word();
-    word.setId(cursor.getLong(0));
-    word.setWord(cursor.getString(1));
-    word.setLength(cursor.getInt(2));
-    return word;
-  }
-  
-  private Score cursorToScore(Cursor cursor) {
-	    Score score = new Score();
-	    score.setId(cursor.getLong(0));
-	    score.setWord(cursor.getString(1));
-	    score.setScore(cursor.getInt(2));	    
-	    score.setDate(cursor.getString(3));
-	    score.setEvil(Boolean.parseBoolean(cursor.getString(4)));
-	    return score;
-	  }
- */
   
 }
